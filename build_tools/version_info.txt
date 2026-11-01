@@ -1,0 +1,34 @@
+# UTF-8
+#
+# 生成的 Windows 版本信息资源，供 PyInstaller 写入 exe 属性。
+#
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1, 0, 0, 0),
+    prodvers=(1, 0, 0, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+  ),
+  kids=[
+    StringFileInfo([
+      StringTable(
+        '080404B0',
+        [
+          StringStruct('CompanyName', '本地离线软件'),
+          StringStruct('FileDescription', '离线英汉互译 OfflineTranslator'),
+          StringStruct('FileVersion', '1.0.0.0'),
+          StringStruct('InternalName', 'OfflineTranslator'),
+          StringStruct('LegalCopyright', '本软件完全离线运行，不含遥测与广告'),
+          StringStruct('OriginalFilename', 'OfflineTranslator.exe'),
+          StringStruct('ProductName', '离线英汉互译'),
+          StringStruct('ProductVersion', '1.0.0.0')
+        ]
+      )
+    ]),
+    VarFileInfo([VarStruct('Translation', [2052, 1200])])
+  ]
+)

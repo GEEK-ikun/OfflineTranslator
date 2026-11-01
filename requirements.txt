@@ -1,0 +1,31 @@
+# 离线英汉互译（OfflineTranslator）运行/构建依赖
+# 说明：以下版本为本机实测通过的组合（Python 3.13 / Windows x64）。
+# 安装：python -m pip install -r requirements.txt
+#
+# 注意：本程序【不需要】torch、spacy、onnxruntime。
+#   - 分句由本程序自带的离线分句器完成（见 src/translator.py 的 OfflineSentencizer）；
+#   - 因此不安装 stanza 的完整依赖（它会把 torch 拉进来，约 118MB 且无必要）。
+#   - 为保证 import argostranslate 成功，程序在导入前放入一个 stanza 占位模块。
+
+# ---- 翻译引擎 ----
+argostranslate==1.11.0
+ctranslate2==4.8.2
+sentencepiece==0.2.2
+sacremoses==0.1.1
+minisbd==0.9.5
+filelock==4.0.11
+
+# ---- 基础依赖 ----
+numpy==2.5.3
+packaging==26.3
+regex==2026.9.29
+click==8.5.0
+joblib==1.6.0
+typing_extensions==4.16.0
+
+# ---- 打包工具（仅构建时需要）----
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.8
+pefile==2024.8.26
+altgraph==0.17.5
+pywin32-ctypes==0.2.3

@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+venv2/
+
+# 构建与打包产物
+build/
+dist/
+dist_installer/
+installers_cache/
+*.spec.bak
+
+# 离线依赖与模型权重：体积大，不进仓库（获取方式见 models/README.md）
+wheels/
+models/packages/
+*.argosmodel
+
+# 本地验证产物（截图、日志、安装核对）——可能含本机信息
+.testdata/
+
+# 运行期
+*.log

@@ -1,0 +1,44 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # --no-deps 是本项目刻意的安装方式：argostranslate 会声明 spacy/stanza，
+      # 而 stanza 会拉进约 1GB 的 torch，本项目完全不用它们。这一步同时验证
+      # "别人照着 README 装，能不能装成"。
+      - name: 按 README 的方式安装依赖
+        run: python -m pip install --no-deps -r requirements.txt
+
+      - name: 语法检查
+        run: >
+          python -m py_compile
+          src/main.py src/translator.py src/argos_env.py
+          src/config.py src/history.py src/app_paths.py
+
+      - name: 依赖集合必须保持干净（不能出现 torch / spacy / stanza）
+        shell: pwsh
+        run: |
+          $py = @'
+          import importlib.util as u, sys
+          bad = [m for m in ("torch", "spacy", "stanza") if u.find_spec(m)]
+          print("unexpected packages: " + str(bad)) if bad else print("dependency set is clean")
+          sys.exit(1 if bad else 0)
+          '@
+          $py | python -
+
+      - name: 基础模块可导入（不加载模型）
+        run: python -c "import sys; sys.path.insert(0,'src'); import app_paths, argos_env; print('ok', app_paths.APP_NAME, app_paths.APP_VERSION)"
